@@ -64,6 +64,19 @@ body{
   </div>
 </div>
 
+<script>
+window.addEventListener("load", function() {
+  setTimeout(() => {
+    const preloader = document.getElementById("preloader");
+    preloader.style.opacity = "0";
+
+    setTimeout(() => {
+      preloader.style.display = "none";
+    }, 500);
+  }, 800);
+});
+</script>
+
 <!-- NAVBAR -->
 <header class="navbar" id="navbar">
   <div class="nav-left">
@@ -74,7 +87,15 @@ body{
 
 <!-- HERO -->
 <section class="hero">
-  <video autoplay muted loop playsinline preload="none" id="bgVideo">
+  <video 
+    id="bgVideo"
+    autoplay 
+    muted 
+    loop 
+    playsinline 
+    preload="auto"
+    poster="IMAGES/fondo.jpg"
+  >
     <source src="VIDEOS/VID-ROMINA1.mp4" type="video/mp4">
   </video>
 
@@ -218,25 +239,24 @@ function responder(p){
 }
 
 cargarPregunta();
+</script>
 
-/* PRELOADER + VIDEO + INSTAGRAM */
-window.addEventListener("load", function() {
+<!-- SCRIPT FINAL (VIDEO + INSTAGRAM) -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
 
-  // preloader
-  setTimeout(() => {
-    const preloader = document.getElementById("preloader");
-    preloader.style.opacity = "0";
-
-    setTimeout(() => {
-      preloader.style.display = "none";
-    }, 500);
-  }, 800);
-
-  // video
   const video = document.getElementById("bgVideo");
-  video.load();
 
-  // instagram
+  video.play().catch(() => {
+    video.muted = true;
+    video.play();
+  });
+
+  video.addEventListener("canplay", () => {
+    video.play();
+  });
+
+  // cargar Instagram después
   let script = document.createElement("script");
   script.src = "https://www.instagram.com/embed.js";
   script.async = true;
@@ -245,7 +265,7 @@ window.addEventListener("load", function() {
 });
 </script>
 
-<!-- FOOTER (INTACTO) -->
+<!-- FOOTER ORIGINAL -->
 <footer class="footer">
   <div class="footer-container">
     <div class="footer-logo-contact">
